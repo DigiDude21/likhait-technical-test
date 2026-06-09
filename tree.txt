@@ -1,0 +1,175 @@
+Folder PATH listing for volume Main
+Volume serial number is 2815-878C
+C:.
+³   .gitignore
+³   docker-compose.yml
+³   LICENSE
+³   README.md
+³   TICKETS.md
+³   tree.txt
+³   
+ÃÄÄÄbackend
+³   ³   .dockerignore
+³   ³   .rspec
+³   ³   .rubocop.yml
+³   ³   .ruby-version
+³   ³   config.ru
+³   ³   Dockerfile
+³   ³   Gemfile
+³   ³   Gemfile.lock
+³   ³   Rakefile
+³   ³   
+³   ÃÄÄÄ.github
+³   ³   ³   dependabot.yml
+³   ³   ³   
+³   ³   ÀÄÄÄworkflows
+³   ³           ci.yml
+³   ³           
+³   ÃÄÄÄapp
+³   ³   ÃÄÄÄcontrollers
+³   ³   ³   ³   application_controller.rb
+³   ³   ³   ³   
+³   ³   ³   ÀÄÄÄapi
+³   ³   ³           categories_controller.rb
+³   ³   ³           expenses_controller.rb
+³   ³   ³           
+³   ³   ÀÄÄÄmodels
+³   ³           application_record.rb
+³   ³           category.rb
+³   ³           expense.rb
+³   ³           
+³   ÃÄÄÄbin
+³   ³       brakeman
+³   ³       docker-entrypoint
+³   ³       rails
+³   ³       rake
+³   ³       rubocop
+³   ³       setup
+³   ³       
+³   ÃÄÄÄconfig
+³   ³   ³   application.rb
+³   ³   ³   boot.rb
+³   ³   ³   credentials.yml.enc
+³   ³   ³   database.yml
+³   ³   ³   environment.rb
+³   ³   ³   puma.rb
+³   ³   ³   routes.rb
+³   ³   ³   storage.yml
+³   ³   ³   
+³   ³   ÃÄÄÄenvironments
+³   ³   ³       development.rb
+³   ³   ³       production.rb
+³   ³   ³       test.rb
+³   ³   ³       
+³   ³   ÃÄÄÄinitializers
+³   ³   ³       cors.rb
+³   ³   ³       filter_parameter_logging.rb
+³   ³   ³       inflections.rb
+³   ³   ³       
+³   ³   ÀÄÄÄlocales
+³   ³           en.yml
+³   ³           
+³   ÃÄÄÄdb
+³   ³   ³   schema.rb
+³   ³   ³   seeds.rb
+³   ³   ³   
+³   ³   ÀÄÄÄmigrate
+³   ³           20260218000001_create_categories.rb
+³   ³           20260218000002_create_expenses.rb
+³   ³           
+³   ÃÄÄÄlib
+³   ³   ÀÄÄÄtasks
+³   ³           .keep
+³   ³           
+³   ÃÄÄÄlog
+³   ³       .keep
+³   ³       
+³   ÃÄÄÄpublic
+³   ³       robots.txt
+³   ³       
+³   ÃÄÄÄspec
+³   ³   ³   rails_helper.rb
+³   ³   ³   spec_helper.rb
+³   ³   ³   
+³   ³   ÃÄÄÄfactories
+³   ³   ³       categories.rb
+³   ³   ³       expenses.rb
+³   ³   ³       
+³   ³   ÃÄÄÄmodels
+³   ³   ³       category_spec.rb
+³   ³   ³       expense_spec.rb
+³   ³   ³       
+³   ³   ÀÄÄÄrequests
+³   ³       ÀÄÄÄapi
+³   ³               categories_spec.rb
+³   ³               expenses_spec.rb
+³   ³               
+³   ÃÄÄÄstorage
+³   ³       .keep
+³   ³       
+³   ÃÄÄÄtmp
+³   ³   ³   .keep
+³   ³   ³   
+³   ³   ÃÄÄÄpids
+³   ³   ³       .keep
+³   ³   ³       
+³   ³   ÀÄÄÄstorage
+³   ³           .keep
+³   ³           
+³   ÀÄÄÄvendor
+³           .keep
+³           
+ÃÄÄÄdb
+³       init.sql
+³       
+ÀÄÄÄfrontend
+    ³   Dockerfile
+    ³   index.html
+    ³   package-lock.json
+    ³   package.json
+    ³   tsconfig.json
+    ³   tsconfig.node.json
+    ³   vite.config.ts
+    ³   
+    ÀÄÄÄsrc
+        ³   App.tsx
+        ³   main.tsx
+        ³   types.ts
+        ³   
+        ÃÄÄÄcomponents
+        ³       CalendarExpenseTable.tsx
+        ³       CategoryBreakdown.tsx
+        ³       ExpenseForm.tsx
+        ³       MonthNavigation.tsx
+        ³       QuickAddButton.tsx
+        ³       Sidebar.tsx
+        ³       YearNavigation.tsx
+        ³       
+        ÃÄÄÄconstants
+        ³       categories.ts
+        ³       categoryEmojis.ts
+        ³       colors.ts
+        ³       
+        ÃÄÄÄhooks
+        ³       useExpenseForm.ts
+        ³       
+        ÃÄÄÄpages
+        ³       HistoryPage.tsx
+        ³       
+        ÃÄÄÄservices
+        ³       api.ts
+        ³       
+        ÃÄÄÄutils
+        ³       expenseUtils.ts
+        ³       
+        ÀÄÄÄvibes
+                Button.tsx
+                ColumnBase.tsx
+                FormControl.tsx
+                index.ts
+                ItemTable.tsx
+                Modal.tsx
+                Pagination.tsx
+                SelectBox.tsx
+                TextField.tsx
+                
