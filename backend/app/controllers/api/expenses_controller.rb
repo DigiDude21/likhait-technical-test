@@ -44,13 +44,14 @@ class Api::ExpensesController < ApplicationController
   #     "expense": {
   #       "description": "Groceries",
   #       "amount": "45.50",
+  #       "payer_name": "Alice",
   #       "category_id": 1,
   #       "date": "2024-01-15"
   #     }
   #   }
   #
   # Response (201 Created):
-  #   { "id": 3, "description": "Groceries", "amount": 45.50, ... }
+  #   { "id": 3, "description": "Groceries", "amount": 45.50, "payer_name": "Alice", ... }
   #
   # Response (422 Unprocessable Entity):
   #   { "errors": ["Amount must be greater than 0"] }
@@ -104,7 +105,7 @@ class Api::ExpensesController < ApplicationController
 
   # Strong parameters - only allow specific fields to prevent mass assignment
   def expense_params
-    params.require(:expense).permit(:description, :amount, :category_id, :date)
+    params.require(:expense).permit(:description, :amount, :category_id, :date, :payer_name)
   end
 
   # Format expense for JSON response
@@ -115,6 +116,7 @@ class Api::ExpensesController < ApplicationController
       description: expense.description,
       amount: expense.amount.to_f,
       category: expense.category.name,
+      payer_name: expense.payer_name,
       date: expense.date.to_s,
       created_at: expense.created_at,
       updated_at: expense.updated_at

@@ -47,6 +47,17 @@ export function ExpenseForm({
   return (
     <form onSubmit={handleSubmit} style={formStyle}>
       <TextField
+        label="Payer Name"
+        type="text"
+        placeholder="Who paid?"
+        value={formData.payer_name}
+        onChange={(e) => handleChange("payer_name", e.target.value)}
+        error={errors.payer_name}
+        fullWidth
+        required
+      />
+
+      <TextField
         label="Amount"
         type="number"
         step="0.01"

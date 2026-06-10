@@ -12,6 +12,7 @@ class Expense < ApplicationRecord
   validates :amount, presence: true, numericality: { greater_than: 0 }
   validates :date, presence: true
   validates :category_id, presence: true
+  validates :payer_name, presence: true, length: { minimum: 1, maximum: 100 }
 
   # ============================================================================
   # Scopes

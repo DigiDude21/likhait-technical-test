@@ -13,6 +13,7 @@ interface UseExpenseFormProps {
 
 export function useExpenseForm({ initialData, onSubmit }: UseExpenseFormProps) {
   const [formData, setFormData] = useState<ExpenseFormData>({
+    payer_name: initialData?.payer_name || "",
     amount: initialData?.amount || "",
     description: initialData?.description || "",
     category: initialData?.category || "",
@@ -32,6 +33,10 @@ export function useExpenseForm({ initialData, onSubmit }: UseExpenseFormProps) {
 
   const validateForm = (): boolean => {
     const newErrors: Partial<ExpenseFormData> = {};
+
+    if (!formData.payer_name.trim()) {
+      newErrors.payer_name = "Payer name is required";
+    }
 
     if (!formData.amount || Number(formData.amount) <= 0) {
       newErrors.amount = "Amount must be greater than 0";
@@ -65,6 +70,7 @@ export function useExpenseForm({ initialData, onSubmit }: UseExpenseFormProps) {
       await onSubmit(formData);
       // Reset form on success
       setFormData({
+        payer_name: "",
         amount: "",
         description: "",
         category: "",
@@ -80,6 +86,7 @@ export function useExpenseForm({ initialData, onSubmit }: UseExpenseFormProps) {
 
   const resetForm = () => {
     setFormData({
+      payer_name: initialData?.payer_name || "",
       amount: initialData?.amount || "",
       description: initialData?.description || "",
       category: initialData?.category || "",
