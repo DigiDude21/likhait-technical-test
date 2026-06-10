@@ -21,6 +21,8 @@ export function ExpenseForm({
   onCancel,
   submitLabel = "Add Expense",
 }: ExpenseFormProps) {
+  const today = new Date().toISOString().split("T")[0];
+
   const { formData, errors, isSubmitting, handleChange, handleSubmit } =
     useExpenseForm({
       initialData,
@@ -46,6 +48,17 @@ export function ExpenseForm({
 
   return (
     <form onSubmit={handleSubmit} style={formStyle}>
+      <TextField
+        label="Payer Name"
+        type="text"
+        placeholder="Who paid?"
+        value={formData.payer_name}
+        onChange={(e) => handleChange("payer_name", e.target.value)}
+        error={errors.payer_name}
+        fullWidth
+        required
+      />
+
       <TextField
         label="Amount"
         type="number"
@@ -87,6 +100,7 @@ export function ExpenseForm({
         error={errors.date}
         fullWidth
         required
+        max={today}
       />
 
       <div style={buttonGroupStyle}>
@@ -98,6 +112,7 @@ export function ExpenseForm({
         >
           {isSubmitting ? "Submitting..." : submitLabel}
         </Button>
+
         {onCancel && (
           <Button
             type="button"

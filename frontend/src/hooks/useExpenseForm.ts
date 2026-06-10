@@ -13,6 +13,7 @@ interface UseExpenseFormProps {
 
 export function useExpenseForm({ initialData, onSubmit }: UseExpenseFormProps) {
   const [formData, setFormData] = useState<ExpenseFormData>({
+    payer_name: initialData?.payer_name || "",
     amount: initialData?.amount || "",
     description: initialData?.description || "",
     category: initialData?.category || "",
@@ -33,6 +34,10 @@ export function useExpenseForm({ initialData, onSubmit }: UseExpenseFormProps) {
   const validateForm = (): boolean => {
     const newErrors: Partial<ExpenseFormData> = {};
 
+    if (!formData.payer_name.trim()) {
+      newErrors.payer_name = "Payer name is required";
+    }
+
     if (!formData.amount || Number(formData.amount) <= 0) {
       newErrors.amount = "Amount must be greater than 0";
     }
@@ -47,6 +52,17 @@ export function useExpenseForm({ initialData, onSubmit }: UseExpenseFormProps) {
 
     if (!formData.date) {
       newErrors.date = "Date is required";
+    } else {
+      const selectedDate = new Date(formData.date);
+      const today = new Date();
+
+      selectedDate.setHours(0, 0, 0, 0);
+      today.setHours(0, 0, 0, 0);
+
+      if (selectedDate > today) {
+        newErrors.date =
+          "Expenses can only be recorded for today or past dates";
+      }
     }
 
     setErrors(newErrors);
@@ -65,6 +81,7 @@ export function useExpenseForm({ initialData, onSubmit }: UseExpenseFormProps) {
       await onSubmit(formData);
       // Reset form on success
       setFormData({
+        payer_name: "",
         amount: "",
         description: "",
         category: "",
@@ -80,6 +97,7 @@ export function useExpenseForm({ initialData, onSubmit }: UseExpenseFormProps) {
 
   const resetForm = () => {
     setFormData({
+      payer_name: initialData?.payer_name || "",
       amount: initialData?.amount || "",
       description: initialData?.description || "",
       category: initialData?.category || "",

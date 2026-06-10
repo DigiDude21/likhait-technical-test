@@ -1,0 +1,18 @@
+current directory: /rails/vendor/bundle/ruby/3.3.0/gems/cgi-0.5.0/ext/cgi/escape
+/usr/local/bin/ruby extconf.rb
+creating Makefile
+
+current directory: /rails/vendor/bundle/ruby/3.3.0/gems/cgi-0.5.0/ext/cgi/escape
+make DESTDIR\= sitearchdir\=./.gem.20260609-7-a7rqe sitelibdir\=./.gem.20260609-7-a7rqe clean
+
+current directory: /rails/vendor/bundle/ruby/3.3.0/gems/cgi-0.5.0/ext/cgi/escape
+make DESTDIR\= sitearchdir\=./.gem.20260609-7-a7rqe sitelibdir\=./.gem.20260609-7-a7rqe
+compiling escape.c
+linking shared-object cgi/escape.so
+
+current directory: /rails/vendor/bundle/ruby/3.3.0/gems/cgi-0.5.0/ext/cgi/escape
+make DESTDIR\= sitearchdir\=./.gem.20260609-7-a7rqe sitelibdir\=./.gem.20260609-7-a7rqe install
+/usr/bin/install -c -m 0755 escape.so ./.gem.20260609-7-a7rqe/cgi
+
+current directory: /rails/vendor/bundle/ruby/3.3.0/gems/cgi-0.5.0/ext/cgi/escape
+make DESTDIR\= sitearchdir\=./.gem.20260609-7-a7rqe sitelibdir\=./.gem.20260609-7-a7rqe clean
