@@ -8,11 +8,11 @@
 allowed_origins = if Rails.env.production?
                      # Production: Use environment variable for whitelisted origins
                      # Set via: export CORS_ORIGINS="https://example.com,https://www.example.com"
-                     ENV['CORS_ORIGINS']&.split(',')&.map(&:strip) || ['localhost']
-                   else
+                     ENV["CORS_ORIGINS"]&.split(",")&.map(&:strip) || [ "localhost" ]
+else
                      # Development: Allow all origins for convenience
-                     '*'
-                   end
+                     "*"
+end
 
 Rails.application.config.middleware.insert_before 0, Rack::Cors do
   allow do

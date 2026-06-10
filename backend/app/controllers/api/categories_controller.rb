@@ -29,7 +29,7 @@ class Api::CategoriesController < ApplicationController
   #   { "errors": ["Name has already been taken"] }
   def create
     category = Category.new(category_params)
-    
+
     if category.save
       render json: category, status: :created
     else
