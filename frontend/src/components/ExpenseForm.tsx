@@ -1,10 +1,14 @@
 /**
- * Form component for adding/editing expenses
+ * ExpenseForm - Form for adding/editing expenses
+ *
+ * This form loads categories dynamically from the API instead of using
+ * a hardcoded list. This way, whenever a user creates a new category,
+ * it becomes available immediately in this dropdown.
  */
 
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { ExpenseFormData } from "../types";
-import { EXPENSE_CATEGORIES } from "../constants/categories";
+import { fetchCategories } from "../services/api";
 import { TextField, SelectBox, Button } from "../vibes";
 import { useExpenseForm } from "../hooks/useExpenseForm";
 
@@ -21,11 +25,32 @@ export function ExpenseForm({
   onCancel,
   submitLabel = "Add Expense",
 }: ExpenseFormProps) {
+  // Track categories loaded from the API
+  const [categories, setCategories] = useState<{ id: number; name: string }[]>([]);
+  const [categoriesLoading, setCategoriesLoading] = useState(true);
+
   const { formData, errors, isSubmitting, handleChange, handleSubmit } =
     useExpenseForm({
       initialData,
       onSubmit,
     });
+
+  // Load categories on component mount
+  useEffect(() => {
+    loadCategories();
+  }, []);
+
+  const loadCategories = async () => {
+    try {
+      setCategoriesLoading(true);
+      const loadedCategories = await fetchCategories();
+      setCategories(loadedCategories);
+    } catch (error) {
+      console.error("Failed to load categories:", error);
+    } finally {
+      setCategoriesLoading(false);
+    }
+  };
 
   const formStyle: React.CSSProperties = {
     display: "flex",
@@ -39,9 +64,10 @@ export function ExpenseForm({
     marginTop: "0.5rem",
   };
 
-  const categoryOptions = EXPENSE_CATEGORIES.map((category) => ({
-    value: category,
-    label: category,
+  // Build dropdown options from loaded categories
+  const categoryOptions = categories.map((category) => ({
+    value: category.name,
+    label: category.name,
   }));
 
   return (
@@ -54,6 +80,7 @@ export function ExpenseForm({
         onChange={(e) => handleChange("payer_name", e.target.value)}
         error={errors.payer_name}
         fullWidth
+        disabled={isSubmitting}
         required
       />
 
@@ -66,6 +93,7 @@ export function ExpenseForm({
         onChange={(e) => handleChange("amount", e.target.value)}
         error={errors.amount}
         fullWidth
+        disabled={isSubmitting}
         required
       />
 
@@ -77,6 +105,7 @@ export function ExpenseForm({
         onChange={(e) => handleChange("description", e.target.value)}
         error={errors.description}
         fullWidth
+        disabled={isSubmitting}
         required
       />
 
@@ -87,6 +116,7 @@ export function ExpenseForm({
         onChange={(e) => handleChange("category", e.target.value)}
         error={errors.category}
         fullWidth
+        disabled={categoriesLoading || isSubmitting}
         required
       />
 
@@ -97,6 +127,7 @@ export function ExpenseForm({
         onChange={(e) => handleChange("date", e.target.value)}
         error={errors.date}
         fullWidth
+        disabled={isSubmitting}
         required
       />
 
@@ -104,7 +135,7 @@ export function ExpenseForm({
         <Button
           type="submit"
           variant="primary"
-          disabled={isSubmitting}
+          disabled={isSubmitting || categoriesLoading}
           fullWidth
         >
           {isSubmitting ? "Submitting..." : submitLabel}
