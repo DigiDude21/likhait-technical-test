@@ -14,6 +14,9 @@ class Expense < ApplicationRecord
   validates :category_id, presence: true
   validates :payer_name, presence: true, length: { minimum: 1, maximum: 100 }
 
+  # Prevent expenses from being created with future dates
+  validate :date_cannot_be_in_future
+
   # ============================================================================
   # Scopes
   # ============================================================================
@@ -26,4 +29,14 @@ class Expense < ApplicationRecord
   scope :by_category, ->(category_id) {
     where(category_id: category_id)
   }
+
+  private
+
+  def date_cannot_be_in_future
+    return if date.blank?
+
+    if date > Date.current
+      errors.add(:date, "cannot be in the future")
+    end
+  end
 end
