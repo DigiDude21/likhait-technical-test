@@ -15,8 +15,10 @@ class Api::ExpensesController < ApplicationController
   #   ]
   def index
     # Using includes to prevent N+1 queries (loads categories with expenses in one query)
-    # Order by expense date (descending) so most recent expenses appear first
-    expenses = Expense.includes(:category).order(date: :desc)
+    # Order by expense date (descending), tie-broken by created_at (descending),
+    # then id (descending) since created_at has only second-level precision
+    # so most recent expenses appear first
+    expenses = Expense.includes(:category).order(date: :desc, created_at: :desc, id: :desc)
 
     if params[:year].present? && params[:month].present?
       year = params[:year].to_i
