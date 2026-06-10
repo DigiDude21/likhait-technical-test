@@ -1,8 +1,48 @@
+# BUG-001: New Expenses Not Appearing at Top of List
+
+## 📋 Summary
+
+Fixed expense ordering so newly added expenses appear at the top of the list. Expenses are now ordered by their expense date (descending) rather than creation timestamp, ensuring the most recent expenses appear first regardless of when they were created.
+
+## 🔧 Technical Implementation
+
+### Backend Fix - Expense Controller
+
+**File**: `backend/app/controllers/api/expenses_controller.rb`
+
+**What changed**: Updated the expense ordering from creation timestamp to expense date
+
+```ruby
+# BEFORE (❌ WRONG):
+def index
+  expenses = Expense.includes(:category).order(created_at: :desc)
+  # ...
+end
+
+# AFTER (✅ CORRECT):
+def index
+  # Using includes to prevent N+1 queries (loads categories with expenses in one query)
+  # Order by expense date (descending) so most recent expenses appear first
+  expenses = Expense.includes(:category).order(date: :desc)
+  # ...
+end
+```
+
+**Why this works**:
+- Orders by `date` field instead of `created_at`
+- Ensures expenses appear sorted by when they occurred, not when they were recorded
+- User creates expense today for January 5? It sorts with other January expenses
+- User creates expense today for March 15? It sorts with March expenses (regardless of today's date)
+
+### Complete Updated Controller
+
+```ruby
 class Api::ExpensesController < ApplicationController
   # ============================================================================
   # GET /api/expenses
   # ============================================================================
   # Returns expenses for a specific month/year or all expenses if no filter provided
+  # Ordered by expense date descending (most recent first)
   #
   # Query parameters:
   #   year (optional): Year to filter by
@@ -124,3 +164,38 @@ class Api::ExpensesController < ApplicationController
     }
   end
 end
+```
+
+---
+
+## 🧪 Testing Workflow
+
+1. **Rebuild and start**: `docker compose down -v && docker compose up --build`
+2. **Navigate to app**: http://localhost:5173
+3. **Create test expense**:
+   - Click "Add Expense"
+   - Set date to last week (e.g., 7 days ago)
+   - Fill other fields and submit
+4. **Verify ordering**:
+   - New expense should NOT appear at top
+   - Should appear sorted by its date (last week section)
+5. **Create another expense**:
+   - Add expense for today's date
+   - It should appear at the very top
+6. **Create backdated expense**:
+   - Add expense for tomorrow's date
+   - It should appear above the today expense
+7. **Cross-month test**:
+   - Add expense for a different month
+   - Navigate to that month
+   - Expense should appear sorted by date within that month
+
+
+## ✨ Expected Behavior After Fix
+
+- Most recent expense dates appear at top of list
+- Older expense dates appear lower
+- Order is consistent regardless of creation time
+- Today's date expense created now appears at top (if today is most recent)
+- Yesterday's date expense created now appears below today's expense
+- Next month's date expense created now appears at bottom (or doesn't appear until you navigate to that month)

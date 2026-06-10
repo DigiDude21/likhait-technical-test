@@ -4,13 +4,14 @@
 
 export const CATEGORY_EMOJIS: Record<string, string> = {
   Food: "🍔",
-  Transportation: "🚗",
+  Transport: "🚗",
+  Housing: "🏠",
   Entertainment: "🎬",
-  Shopping: "🛍️",
-  Bills: "📄",
   Healthcare: "🏥",
   Education: "📚",
-  Travel: "✈️",
+  Shopping: "🛍️",
+  Work: "💼",
+  Utilities: "📄",
   Other: "📦",
 };
 

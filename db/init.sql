@@ -28,11 +28,16 @@ CREATE TABLE IF NOT EXISTS expenses (
 
 -- Seed categories
 INSERT INTO categories (name) VALUES
-  ('Food'),
-  ('Transport'),
-  ('Supplies'),
-  ('Entertainment'),
-  ('Utilities')
+('Food'),
+('Transport'),
+('Housing'),
+('Entertainment'),
+('Healthcare'),
+('Education'),
+('Shopping'),
+('Work'),
+('Utilities'),
+('Other')
 ON DUPLICATE KEY UPDATE name=name;
 
 -- Seed expenses
