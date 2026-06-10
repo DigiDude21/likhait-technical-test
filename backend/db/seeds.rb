@@ -7,14 +7,14 @@ Category.destroy_all
 puts "Creating categories..."
 categories = [
   'Food',
-  'Transportation',
-  'Shopping',
+  'Transport',
+  'Housing',
   'Entertainment',
-  'Bills',
   'Healthcare',
   'Education',
-  'Travel',
-  'Personal',
+  'Shopping',
+  'Work',
+  'Utilities',
   'Other'
 ]
 
@@ -37,7 +37,7 @@ expense_templates = {
     { description: 'Delivery food', amount_range: 15..40 },
     { description: 'Bakery items', amount_range: 10..25 }
   ],
-  'Transportation' => [
+  'Transport' => [
     { description: 'Gas fill-up', amount_range: 40..70 },
     { description: 'Uber/Lyft ride', amount_range: 15..35 },
     { description: 'Public transit pass', amount_range: 50..100 },
@@ -45,13 +45,13 @@ expense_templates = {
     { description: 'Car maintenance', amount_range: 100..300 },
     { description: 'Toll fees', amount_range: 5..15 }
   ],
-  'Shopping' => [
-    { description: 'Clothing purchase', amount_range: 40..150 },
-    { description: 'Electronics', amount_range: 100..500 },
-    { description: 'Home goods', amount_range: 30..120 },
-    { description: 'Books', amount_range: 15..50 },
-    { description: 'Beauty products', amount_range: 20..80 },
-    { description: 'Online shopping', amount_range: 25..100 }
+  'Housing' => [
+    { description: 'Rent payment', amount_range: 800..1500 },
+    { description: 'Home repair', amount_range: 100..500 },
+    { description: 'Furniture purchase', amount_range: 200..800 },
+    { description: 'Home cleaning', amount_range: 50..150 },
+    { description: 'Garden supplies', amount_range: 30..100 },
+    { description: 'Paint and supplies', amount_range: 50..200 }
   ],
   'Entertainment' => [
     { description: 'Movie tickets', amount_range: 15..40 },
@@ -60,14 +60,6 @@ expense_templates = {
     { description: 'Gaming purchase', amount_range: 20..60 },
     { description: 'Sports event', amount_range: 30..100 },
     { description: 'Museum entry', amount_range: 15..30 }
-  ],
-  'Bills' => [
-    { description: 'Electricity bill', amount_range: 80..150 },
-    { description: 'Water bill', amount_range: 30..60 },
-    { description: 'Internet service', amount_range: 50..100 },
-    { description: 'Mobile phone bill', amount_range: 40..80 },
-    { description: 'Home insurance', amount_range: 100..200 },
-    { description: 'Rent payment', amount_range: 800..1500 }
   ],
   'Healthcare' => [
     { description: 'Doctor visit', amount_range: 50..150 },
@@ -85,29 +77,37 @@ expense_templates = {
     { description: 'Workshop fee', amount_range: 50..150 },
     { description: 'Certification exam', amount_range: 100..300 }
   ],
-  'Travel' => [
-    { description: 'Flight tickets', amount_range: 200..800 },
-    { description: 'Hotel booking', amount_range: 100..400 },
-    { description: 'Travel insurance', amount_range: 50..150 },
-    { description: 'Luggage', amount_range: 50..200 },
-    { description: 'Tour package', amount_range: 150..500 },
-    { description: 'Visa application', amount_range: 50..200 }
+  'Shopping' => [
+    { description: 'Clothing purchase', amount_range: 40..150 },
+    { description: 'Electronics', amount_range: 100..500 },
+    { description: 'Home goods', amount_range: 30..120 },
+    { description: 'Books', amount_range: 15..50 },
+    { description: 'Beauty products', amount_range: 20..80 },
+    { description: 'Online shopping', amount_range: 25..100 }
   ],
-  'Personal' => [
-    { description: 'Haircut', amount_range: 20..60 },
-    { description: 'Spa treatment', amount_range: 50..150 },
-    { description: 'Personal care items', amount_range: 15..50 },
-    { description: 'Gift purchase', amount_range: 30..100 },
-    { description: 'Charity donation', amount_range: 20..100 },
-    { description: 'Pet care', amount_range: 30..100 }
+  'Work' => [
+    { description: 'Office supplies', amount_range: 20..80 },
+    { description: 'Professional development', amount_range: 50..300 },
+    { description: 'Laptop software', amount_range: 30..200 },
+    { description: 'Conference registration', amount_range: 100..500 },
+    { description: 'Work equipment', amount_range: 50..400 },
+    { description: 'Coworking space', amount_range: 50..200 }
+  ],
+  'Utilities' => [
+    { description: 'Electricity bill', amount_range: 80..150 },
+    { description: 'Water bill', amount_range: 30..60 },
+    { description: 'Internet service', amount_range: 50..100 },
+    { description: 'Mobile phone bill', amount_range: 40..80 },
+    { description: 'Home insurance', amount_range: 100..200 },
+    { description: 'Trash service', amount_range: 20..50 }
   ],
   'Other' => [
     { description: 'Miscellaneous expense', amount_range: 10..100 },
     { description: 'Bank fees', amount_range: 5..30 },
     { description: 'Subscription service', amount_range: 10..50 },
     { description: 'Repairs', amount_range: 50..200 },
-    { description: 'Storage rental', amount_range: 50..150 },
-    { description: 'Professional services', amount_range: 100..300 }
+    { description: 'Pet care', amount_range: 30..100 },
+    { description: 'Charity donation', amount_range: 20..100 }
   ]
 }
 

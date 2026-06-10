@@ -1,6 +1,12 @@
 -- Create database if not exists
 CREATE DATABASE IF NOT EXISTS expense_system_development CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
+-- Create the test database and grant access so `bundle exec rspec` can run
+-- against expense_system_test (MYSQL_DATABASE only covers the dev database)
+CREATE DATABASE IF NOT EXISTS expense_system_test CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+GRANT ALL PRIVILEGES ON expense_system_test.* TO 'expense_user'@'%';
+FLUSH PRIVILEGES;
+
 USE expense_system_development;
 
 -- Create categories table
@@ -28,11 +34,16 @@ CREATE TABLE IF NOT EXISTS expenses (
 
 -- Seed categories
 INSERT INTO categories (name) VALUES
-  ('Food'),
-  ('Transport'),
-  ('Supplies'),
-  ('Entertainment'),
-  ('Utilities')
+('Food'),
+('Transport'),
+('Housing'),
+('Entertainment'),
+('Healthcare'),
+('Education'),
+('Shopping'),
+('Work'),
+('Utilities'),
+('Other')
 ON DUPLICATE KEY UPDATE name=name;
 
 -- Seed expenses

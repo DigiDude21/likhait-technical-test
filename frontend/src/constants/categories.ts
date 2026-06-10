@@ -1,17 +1,21 @@
 /**
  * Expense category constants
+ * 
+ * NOTE: Categories are primarily loaded from the API via fetchCategories().
+ * These are legacy constants kept for reference only.
+ * The actual categories used come from the backend database.
  */
 
 export const EXPENSE_CATEGORIES = [
   "Food",
-  "Transportation",
+  "Transport",
+  "Housing",
   "Entertainment",
-  "Shopping",
-  "Bills",
   "Healthcare",
   "Education",
-  "Travel",
-  "Personal",
+  "Shopping",
+  "Work",
+  "Utilities",
   "Other",
 ] as const;
 

@@ -9,26 +9,26 @@ WORKDIR /rails
 
 # Install base packages
 RUN apt-get update -qq && \
-    apt-get install --no-install-recommends -y build-essential ca-certificates default-mysql-client default-libmysqlclient-dev git && \
+    apt-get install --no-install-recommends -y build-essential ca-certificates default-mysql-client default-libmysqlclient-dev git libyaml-dev netcat-traditional && \
     rm -rf /var/lib/apt/lists /var/cache/apt/archives
 
-# Install application gems
+# Copy application gems first
 COPY Gemfile Gemfile.lock ./
 
-# Configure bundler and install gems with retry logic
-RUN bundle config set --local deployment 'false' && \
-    bundle config set --local path 'vendor/bundle' && \
+# Configure bundler and install gems
+RUN bundle config set --local deployment 'true' && \
     bundle install --jobs 4 --retry 3
 
 # Copy application code
 COPY . .
 
-# Precompile bootsnap code for faster boot times
-RUN bundle exec bootsnap precompile --gemfile app/ lib/
+# Fix Windows line endings in ALL files
+RUN for f in $(find . -type f ! -path "*/vendor/*" ! -path "*/.git/*" ! -path "*/node_modules/*"); do sed -i 's/\r$//' "$f"; done
 
-# Entrypoint prepares the database
-ENTRYPOINT ["/rails/bin/docker-entrypoint"]
+# Copy entrypoint script
+COPY docker-entrypoint.sh /usr/local/bin/
+RUN chmod +x /usr/local/bin/docker-entrypoint.sh && sed -i 's/\r$//' /usr/local/bin/docker-entrypoint.sh
 
 # Start the server by default
 EXPOSE 3000
-CMD ["rails", "server", "-b", "0.0.0.0"]
+ENTRYPOINT ["/usr/local/bin/docker-entrypoint.sh"]

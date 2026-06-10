@@ -5,8 +5,8 @@ RSpec.describe "Api::Expenses", type: :request do
   let!(:transport_category) { Category.create!(name: "Transport") }
 
   describe "GET /api/expenses" do
-  let!(:expense1) { Expense.create!(description: "Lunch", amount: 100.00, category: food_category, date: Date.today) }
-  let!(:expense2) { Expense.create!(description: "Taxi", amount: 50.00, category: transport_category, date: Date.today) }
+  let!(:expense1) { Expense.create!(description: "Lunch", amount: 100.00, category: food_category, date: Date.today, payer_name: "Alice") }
+  let!(:expense2) { Expense.create!(description: "Taxi", amount: 50.00, category: transport_category, date: Date.today, payer_name: "Bob") }
 
     it "returns all expenses with category information" do
       get "/api/expenses"
@@ -33,7 +33,8 @@ RSpec.describe "Api::Expenses", type: :request do
             description: "Team Lunch",
             amount: 150.50,
             category_id: food_category.id,
-            date: Date.today
+            date: Date.today,
+            payer_name: "Alice"
           }
         }
       end
@@ -46,7 +47,7 @@ RSpec.describe "Api::Expenses", type: :request do
         expect(response).to have_http_status(:created)
         json = JSON.parse(response.body)
         expect(json["description"]).to eq("Team Lunch")
-        expect(json["amount"]).to eq("150.5")
+        expect(json["amount"]).to eq(150.5)
       end
     end
 
@@ -57,15 +58,16 @@ RSpec.describe "Api::Expenses", type: :request do
             description: "Invalid expense",
             amount: -100.00,
             category_id: food_category.id,
-            date: Date.today
+            date: Date.today,
+            payer_name: "Alice"
           }
         }
 
         expect {
           post "/api/expenses", params: invalid_params, as: :json
-        }.to change(Expense, :count).by(1)
+        }.not_to change(Expense, :count)
 
-        expect(response).to have_http_status(:created)
+        expect(response).to have_http_status(:unprocessable_entity)
       end
 
       it "with empty descriptions" do
@@ -74,15 +76,16 @@ RSpec.describe "Api::Expenses", type: :request do
             description: "",
             amount: 100.00,
             category_id: food_category.id,
-            date: Date.today
+            date: Date.today,
+            payer_name: "Alice"
           }
         }
 
         expect {
           post "/api/expenses", params: invalid_params, as: :json
-        }.to change(Expense, :count).by(1)
+        }.not_to change(Expense, :count)
 
-        expect(response).to have_http_status(:created)
+        expect(response).to have_http_status(:unprocessable_entity)
       end
     end
   end
